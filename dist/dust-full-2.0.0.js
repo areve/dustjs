@@ -660,8 +660,9 @@ if (typeof exports !== "undefined") {
 }
 var dustCompiler = (function(dust) {
 
-dust.compile = function(source, name) {
+dust.compile = function(source, name, preserveLines) {
   try {
+    if (preserveLines) source=source.replace(/\n/mg,'{~n}')
     var ast = filterAST(dust.parse(source));
     return compile(ast, name);
   }
